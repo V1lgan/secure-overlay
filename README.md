@@ -18,21 +18,24 @@
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
-'''
+```
 
 ## Тестирование
 
-'''bash
-pytest -v'''
+```bash
+pytest -v
+```
 
 ## Проверка TCP-взаимодействия
 
 Терминал 1 (Сервер):
 
-'''bash
-python scripts/ping_server.py'''
+```bash
+python scripts/ping_server.py
+```
 
 Терминал 2 (Клиент):
 
-'''bash
-python scripts/ping_client.py'''
+```bash
+python scripts/ping_client.py
+```
