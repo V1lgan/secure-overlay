@@ -17,10 +17,15 @@ class Server:
         log.info(f"Server started on {host}:{port}")
 
     async def _handle_client(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
-        # Создаем обертку Connection для каждого клиента
         conn = Connection(
             reader, writer, 
             max_frame_payload=self.max_frame_payload,
             on_frame=lambda f: self.on_frame(conn, f)
         )
-        await conn.run()
+        try:
+            await conn.run()
+        except Exception as e:
+            # Ловим любые ошибки конкретного клиента, чтобы сервер продолжал работать
+            log.error(f"Error handling client: {e}")
+        finally:
+            await conn.close()
